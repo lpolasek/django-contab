@@ -9,6 +9,8 @@ class Cliente(models.Model):
 	numero_documento = models.CharField(max_length=10)
 	cuit = models.CharField(max_length=13)
 
+	% TODO: verificar si el cuit es válido.
+
 	def __unicode__(self):
 		return "%s %s" % (self.nombre, self.apellido)
 
