@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block clientes_active %}class="active"{% endblock %}
+
+{% block heading %}Clientes{% endblock %}
+
+{% block cancel_action %}{% url clientes %}{% endblock %}
+
+{% block table_header %}
+<td><strong>Apellido</strong></td>
+<td><strong>Nombre</strong></td>
+<td><strong>Direccion</strong></td>
+<td><strong>Telefono</strong></td>
+<td><strong>Documento</strong></td>
+<td colspan=2><strong>CUIT</strong></td>
+{% endblock %}
+
+{% block table_row %}
+<td>{{ item.apellido }}</td>
+<td>{{ item.nombre }}</td>
+<td>{{ item.direccion }}</td>
+<td>{{ item.telefono }}</td>
+<td>{{ item.tipo_documento }} {{ item.numero_documento }}</td>
+<td>{{ item.cuit }}</td>
+<td align="right">
+	<a href="{% url clientes_edit item.id %}"><img src="{{ STATIC_URL }}img/icon_changelink.gif"></a>
+	<a href="{% url clientes_delete item.id %}"><img src="{{ STATIC_URL }}img/icon_deletelink.gif"></a>
+</td>
+{% endblock %}

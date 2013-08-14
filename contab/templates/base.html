@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+	<title>Contabilidad</title>
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css" /> 
+	<style>
+		body {
+			padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+		}
+	</style>
+</head>
+<body>
+<div class="container">
+
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="brand" href="#">Contabilidad</a>
+				<div class="nav-collapse collapse">
+					<ul class="nav">
+						<li {% block clientes_active %}{% endblock %}><a href="{% url clientes %}">Clientes</a></li>
+						<li><a href="#">Cuentas</a></li>
+						<li><a href="#">Diario</a></li>
+						<li><a href="#">Mayor</a></li>
+						<li><a href="#">Ajuste</a></li>
+						<li><a href="#">Balance</a></li>
+					</ul>
+				</div><!--/.nav-collapse -->
+			</div>
+		</div>
+	</div>
+
+
+	<div class="row">
+			<div class="col-lg-1"></div>
+
+			<div class="col-lg-10">
+				<h1>{% block heading %}{% endblock %}</h1>
+					<form action="{{ action }}" method='post' class='form-horizontal'>
+						<div class="control-group">
+							{% csrf_token %}
+							{% load crispy_forms_tags %}
+							{% crispy form form.helper %}
+							<div class='controls'>
+								<button type='submit' class="btn btn-default">{{ button_label }}</button>
+								<a class="btn btn-default" href="{% block cancel_action %}{% endblock %}">Cancelar</a>
+							</div>
+						</div>
+					</form>
+				<p>
+				<table class="table table-striped table-condensed">
+					<tr class="success">
+					{% block table_header %}{% endblock %}
+					</tr>
+					{% for item in items %}
+						<tr>
+						{% block table_row %}{% endblock %}
+						</tr>
+					{% endfor %}
+				<table>
+			</div>
+			<div class="col-lg-1"></div>
+	</div>
+
+</div>
+</body>
+</html>
