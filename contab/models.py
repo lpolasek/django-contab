@@ -1,4 +1,27 @@
 from django.db import models
+from django.core.exceptions import ValidationError
+
+def validate_cuit(cuit):
+	""" CUIT validator """
+	cuit_valido = True
+	if (len(cuit) != 11) or (not cuit.isdigit()):
+		cuit_valido = False
+
+	if cuit_valido:
+		base = [5, 4, 3, 2, 7, 6, 5, 4, 3, 2]
+		aux = 0
+		for i in xrange(10):
+			aux += int(cuit[i]) * base[i]
+		aux = 11 - (aux % 11)
+		if aux == 11:
+			aux = 0
+		elif aux == 10:
+			aux = 9
+		if int(cuit[10]) != aux:
+			cuit_valido = False
+    
+	if not cuit_valido:
+		raise ValidationError(u'CUIT invalido.')
 
 class Cliente(models.Model):
 	apellido = models.CharField(max_length=40)
@@ -7,9 +30,7 @@ class Cliente(models.Model):
 	telefono = models.CharField(max_length=14)
 	tipo_documento = models.CharField(max_length=3)
 	numero_documento = models.CharField(max_length=10)
-	cuit = models.CharField(max_length=13)
-
-	% TODO: verificar si el cuit es válido.
+	cuit = models.CharField(max_length=13, validators=[validate_cuit])
 
 	def __unicode__(self):
 		return "%s %s" % (self.nombre, self.apellido)
