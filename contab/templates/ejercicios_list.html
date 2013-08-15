@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block ejercicios_active %}class="active"{% endblock %}>
+
+{% block heading %}Ejercicios{% endblock %}
+
+{% block cancel_action %}{% url ejercicios cliente.id %}{% endblock %}
+
+{% block table_header %}
+<td><strong>Inicio</strong></td>
+<td colspan=2><strong>Formato Cuenta</strong></td>
+{% endblock %}
+
+{% block table_row %}
+<td>{{ item.inicio|date:"F-Y" }}</td>
+<td>{{ item.formato_cuenta }}</td>
+<td>
+	<div  align="right" >
+	<a href="{% url ejercicios_edit cliente.id item.id %}"><img src="{{ STATIC_URL }}img/icon_changelink.gif"></a>
+	<a href="{% url ejercicios_delete cliente.id item.id %}"><img src="{{ STATIC_URL }}img/icon_deletelink.gif"></a>
+	</div>
+</td>
+{% endblock %}
