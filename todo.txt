@@ -1,0 +1,2 @@
+* Cambiar ejercicio::inicio a 2 input text
+* mejorar views clientes/ejercicios
