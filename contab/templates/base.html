@@ -15,15 +15,31 @@
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container">
+				<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
 				<a class="brand" href="#">Contabilidad</a>
 				<div class="nav-collapse collapse">
+{% if cliente %}
+					<p class="navbar-text pull-right">
+						<strong>{{ cliente.razon_social }}</strong>
+						{{ cliente.cuit|slice:"0:2" }}-{{ cliente.cuit|slice:"2:10" }}-{{ cliente.cuit|slice:"10:11" }}
+					</p>
+{% endif %}
 					<ul class="nav">
 						<li {% block clientes_active %}{% endblock %}><a href="{% url clientes %}">Clientes</a></li>
-						<li><a href="#">Cuentas</a></li>
+{% if cliente %}
+						<li {% block ejercicios_active %}{% endblock %}><a href="{% url ejercicios cliente.id %}">Ejercicios</a></li>
+{% endif %}
+
+<!--						<li><a href="#">Cuentas</a></li>
 						<li><a href="#">Diario</a></li>
 						<li><a href="#">Mayor</a></li>
 						<li><a href="#">Ajuste</a></li>
 						<li><a href="#">Balance</a></li>
+-->
 					</ul>
 				</div><!--/.nav-collapse -->
 			</div>

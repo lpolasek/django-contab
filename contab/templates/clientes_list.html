@@ -7,8 +7,7 @@
 {% block cancel_action %}{% url clientes %}{% endblock %}
 
 {% block table_header %}
-<td><strong>Apellido</strong></td>
-<td><strong>Nombre</strong></td>
+<td><strong>Razón Social</strong></td>
 <td><strong>Direccion</strong></td>
 <td><strong>Telefono</strong></td>
 <td><strong>Documento</strong></td>
@@ -16,14 +15,16 @@
 {% endblock %}
 
 {% block table_row %}
-<td>{{ item.apellido }}</td>
-<td>{{ item.nombre }}</td>
+<td>{{ item.razon_social }}</td>
 <td>{{ item.direccion }}</td>
 <td>{{ item.telefono }}</td>
 <td>{{ item.tipo_documento }} {{ item.numero_documento }}</td>
-<td>{{ item.cuit }}</td>
-<td align="right">
+<td>{{ item.cuit|slice:"0:2" }}-{{ item.cuit|slice:"2:10" }}-{{ item.cuit|slice:"10:11" }}</td>
+<td>
+	<div  align="right" >
+	<a href="{% url ejercicios item.id %}"><img src="{{ STATIC_URL }}img/icon_success.gif"></a>
 	<a href="{% url clientes_edit item.id %}"><img src="{{ STATIC_URL }}img/icon_changelink.gif"></a>
 	<a href="{% url clientes_delete item.id %}"><img src="{{ STATIC_URL }}img/icon_deletelink.gif"></a>
+	</div>
 </td>
 {% endblock %}
